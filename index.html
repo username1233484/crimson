@@ -3,10 +3,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CRIMSON</title>
 
 <style>
+:root {
+  --red: #ff174f;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,373 +18,205 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #030303;
+  background:
+    radial-gradient(ellipse at 50% 35%, #26000d 0%, #100008 40%, #030303 85%);
   color: white;
   font-family: Arial, sans-serif;
+  padding: 35px 12px;
   overflow-x: hidden;
+  position: relative;
 }
 
-body::before {
-  content: "";
+/* MOVING NEON SNAKE */
+
+.snake {
   position: fixed;
-  inset: -40%;
-  z-index: -1;
-  background: radial-gradient(circle, #b000352e, transparent 55%);
-  animation: redGlow 5s ease-in-out infinite alternate;
+  inset: 7px;
+  width: calc(100% - 14px);
+  height: calc(100% - 14px);
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
 }
 
-@keyframes redGlow {
-  from { transform: scale(.7); opacity: .4; }
-  to { transform: scale(1.3); opacity: 1; }
+.snake path {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 55 1800;
+  animation: snakeMove 9s linear infinite;
+  filter:
+    drop-shadow(0 0 4px #ff174f)
+    drop-shadow(0 0 9px #ff174f)
+    drop-shadow(0 0 16px #ff174f88);
 }
 
-/* SMALL TOP BAR */
+@keyframes snakeMove {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1855;
+  }
+}
+
+/* CONTENT */
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* TITLE */
+
 header {
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-  padding: 9px;
-  background: #080808;
-  border-bottom: 1px solid #48101f;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.tab {
-  background: #16070c;
-  color: #ddd;
-  border: 1px solid #48101f;
-  border-radius: 9px;
-  padding: 8px 13px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.tab.active, .tab:hover {
-  background: #a00032;
-  color: white;
-  box-shadow: 0 0 12px #ff174455;
-}
-
-/* MAIN LAYOUT */
-main {
-  width: min(1100px, 95%);
-  margin: 18px auto;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-/* BROWSER AREA */
-.browser {
-  width: 100%;
-  min-height: 62vh;
-  background: rgba(8, 8, 8, .94);
-  border: 1px solid #531126;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 0 25px #ff174411;
-}
-
-.browser-top {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px;
-  background: #12080c;
-  border-bottom: 1px solid #45101e;
-}
-
-.browser-dots {
-  display: flex;
-  gap: 5px;
-}
-
-.browser-dots span {
-  width: 8px;
-  height: 8px;
-  background: #ff315f;
-  border-radius: 50%;
-}
-
-.address {
-  flex: 1;
-  min-width: 0;
-  background: #050505;
-  color: #aaa;
-  border: 1px solid #421020;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-.browser-content {
-  min-height: 55vh;
-  padding: 20px;
   text-align: center;
+  margin-bottom: 25px;
 }
 
-.browser-content h2 {
-  color: #ff315f;
-}
-
-.browser-content p {
-  color: #999;
-}
-
-/* GAMES IN A ROW */
-.games-row {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 12px 2px;
-  margin-bottom: 15px;
-}
-
-.game {
-  flex: 0 0 125px;
-  padding: 14px 8px;
-  text-align: center;
-  background: #17070d;
-  border: 1px solid #68152b;
-  border-radius: 11px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.game:hover {
-  border-color: #ff1744;
-  box-shadow: 0 0 15px #ff174455;
-}
-
-/* CRIMSON UNDER BROWSER */
-.crimson-area {
-  text-align: center;
-  padding: 28px 10px 45px;
-}
-
-.big-logo {
-  display: inline-block;
-  font-size: clamp(42px, 10vw, 75px);
+.logo {
+  color: var(--red);
+  font-size: clamp(40px, 10vw, 66px);
   font-weight: 900;
-  letter-spacing: 9px;
-  margin: 5px 0 15px;
-  cursor: pointer;
-  user-select: none;
-  touch-action: manipulation;
-  background: linear-gradient(90deg, #ff1744, #ff00cc, #ff405c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 12px #ff174455);
-  transition: transform .2s, filter .2s;
+  letter-spacing: 7px;
+  animation: glow 1.5s infinite alternate;
 }
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px var(--red), 0 0 10px var(--red);
+  }
+  to {
+    text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88;
+  }
+}
+
+/* SEARCH */
 
 .search {
-  width: min(550px, 95%);
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #a51a40;
-  background: #10090c;
-  color: white;
-  font-size: 15px;
-  outline: none;
-}
-
-.search:focus {
-  box-shadow: 0 0 15px #ff1744;
-}
-
-.quick-links {
+  width: 100%;
+  max-width: 600px;
+  height: 52px;
+  margin: 0 auto;
+  border: 2px solid var(--red);
+  border-radius: 30px;
+  box-shadow: 0 0 5px var(--red), 0 0 12px #ff174f66;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-top: 15px;
+  align-items: center;
+  padding: 0 16px;
+  background: #101010;
+  gap: 12px;
 }
 
-.quick-links button {
-  background: #16070c;
-  border: 1px solid #68152b;
+.back {
+  border: 1px solid var(--red);
+  background: #151515;
   color: white;
-  padding: 9px 15px;
-  border-radius: 9px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  box-shadow: 0 0 5px #ff174f77;
   cursor: pointer;
 }
 
-.quick-links button:hover {
-  background: #a00032;
+.search-text {
+  color: #999;
+  font-size: 13px;
 }
 
-footer {
-  text-align: center;
-  color: #75404e;
-  padding: 20px;
-  font-size: 11px;
+/* APPS */
+
+.tiles {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin: 28px auto 0;
 }
+
+.tile {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  background: #101010;
+  border: 2px solid var(--red);
+  border-radius: 9px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 0 5px var(--red), 0 0 12px #ff174f66;
+  cursor: pointer;
+}
+
+.tile:active {
+  transform: scale(.97);
+}
+
+.symbol {
+  color: var(--red);
+  font-size: 21px;
+  font-weight: bold;
+  text-shadow: 0 0 7px #ff174f88;
+}
+
+.tile span:last-child {
+  font-size: 11px;
+  letter-spacing: .5px;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- SNAKE ANIMATION -->
+<svg class="snake" viewBox="0 0 400 800" preserveAspectRatio="none">
+  <path d="M 35 15
+           H 365
+           Q 385 15 385 35
+           V 765
+           Q 385 785 365 785
+           H 35
+           Q 15 785 15 765
+           V 35
+           Q 15 15 35 15" />
+</svg>
+
+<div class="content">
+
 <header>
-  <button class="tab active" onclick="showPage('home',this)">Home</button>
-  <button class="tab" onclick="showPage('games',this)">Games</button>
-  <button class="tab" onclick="showPage('youtube',this)">YouTube</button>
-  <button class="tab" onclick="showPage('tiktok',this)">TikTok</button>
+  <div class="logo">CRIMSON</div>
 </header>
 
-<main>
+<div class="search">
+  <button class="back" onclick="history.back()">←</button>
+  <span class="search-text">Search the web...</span>
+</div>
 
-<section id="home" class="page active">
+<div class="tiles">
 
-  <div class="browser">
-    <div class="browser-top">
-      <div class="browser-dots">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="address">CRIMSON Browser</div>
-    </div>
+  <button class="tile" onclick="window.open('https://www.youtube.com','_blank')">
+    <div class="symbol">▶</div>
+    <span>YOUTUBE</span>
+  </button>
 
-    <div class="browser-content">
-      <h2>WELCOME TO CRIMSON</h2>
-      <p>Your own corner of the internet.</p>
+  <button class="tile" onclick="window.open('https://www.tiktok.com','_blank')">
+    <div class="symbol">♪</div>
+    <span>TIKTOK</span>
+  </button>
 
-      <div class="games-row">
-        <div class="game" onclick="showPage('games')">GAMES</div>
-        <div class="game" onclick="showPage('youtube')">YOUTUBE</div>
-        <div class="game" onclick="showPage('tiktok')">TIKTOK</div>
-        <div class="game" onclick="showPage('home')">HOME</div>
-      </div>
+  <button class="tile" onclick="window.open('https://geometrydash.com/game/index.html','_blank')">
+    <div class="symbol">✦</div>
+    <span>GAMES</span>
+  </button>
 
-      <p>Choose a section above to get started.</p>
-    </div>
-  </div>
+</div>
 
-  <div class="crimson-area">
-    <h1 class="big-logo" id="movingTitle">CRIMSON</h1>
-    <form onsubmit="searchGoogle(event)">
-      <input class="search" id="searchBox" placeholder="Search the web...">
-    </form>
-
-    <div class="quick-links">
-      <button onclick="showPage('youtube')">YouTube</button>
-      <button onclick="showPage('tiktok')">TikTok</button>
-      <button onclick="showPage('games')">Games</button>
-    </div>
-  </div>
-
-</section>
-
-<section id="games" class="page">
-  <div class="browser">
-    <div class="browser-top">
-      <div class="browser-dots"><span></span><span></span><span></span></div>
-      <div class="address">CRIMSON / Games</div>
-    </div>
-    <div class="browser-content">
-      <h2>GAMES</h2>
-      <p>Your games section. More games can be added here.</p>
-      <div class="games-row">
-        <div class="game">GAME 01</div>
-        <div class="game">GAME 02</div>
-        <div class="game">GAME 03</div>
-        <div class="game">GAME 04</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="youtube" class="page">
-  <div class="browser">
-    <div class="browser-top">
-      <div class="browser-dots"><span></span><span></span><span></span></div>
-      <div class="address">CRIMSON / YouTube</div>
-    </div>
-    <div class="browser-content">
-      <h2>YouTube</h2>
-      <p>YouTube may block its full website from being shown inside CRIMSON.</p>
-      <a href="https://www.youtube.com" target="_blank" style="color:#ff5278">
-        Open YouTube in a new tab
-      </a>
-    </div>
-  </div>
-</section>
-
-<section id="tiktok" class="page">
-  <div class="browser">
-    <div class="browser-top">
-      <div class="browser-dots"><span></span><span></span><span></span></div>
-      <div class="address">CRIMSON / TikTok</div>
-    </div>
-    <div class="browser-content">
-      <h2>TikTok</h2>
-      <p>TikTok may block its full website from being shown inside CRIMSON.</p>
-      <a href="https://www.tiktok.com" target="_blank" style="color:#ff5278">
-        Open TikTok in a new tab
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>CRIMSON — YOUR WORLD, YOUR SPACE</footer>
-
-<script>
-function showPage(name, button) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-
-  if (button) {
-    button.classList.add('active');
-  } else {
-    document.querySelectorAll('.tab').forEach(t => {
-      if (t.textContent.toLowerCase() === name) t.classList.add('active');
-    });
-  }
-
-  window.scrollTo(0, 0);
-}
-
-function searchGoogle(event) {
-  event.preventDefault();
-  const q = document.getElementById('searchBox').value.trim();
-  if (q) {
-    document.querySelector('.address').textContent = 'Searching: ' + q;
-    document.querySelector('.browser-content').innerHTML =
-      '<h2>SEARCHING</h2><p>Your search is ready. Google results need to open separately because Google blocks embedded search pages.</p><a style="color:#ff5278" href="https://www.google.com/search?q=' +
-      encodeURIComponent(q) + '" target="_blank">View search results</a>';
-  }
-}
-
-const title = document.getElementById('movingTitle');
-
-function resetTitle() {
-  title.style.transform = 'scale(1)';
-  title.style.filter = 'drop-shadow(0 0 12px #ff174455)';
-}
-
-title.addEventListener('pointerdown', () => {
-  title.style.transform = 'scale(1.06)';
-  title.style.filter = 'drop-shadow(0 0 12px #ff1744) drop-shadow(0 0 25px #ff00cc)';
-});
-
-title.addEventListener('pointerup', resetTitle);
-title.addEventListener('pointercancel', resetTitle);
-title.addEventListener('pointerleave', resetTitle);
-</script>
+</div>
 
 </body>
 </html>
-
-
