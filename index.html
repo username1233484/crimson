@@ -9,278 +9,221 @@
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
+  margin: 0;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  background: #030303;
   color: white;
-  background:
-    radial-gradient(ellipse at 50% 30%, #791b2b, transparent 60%),
-    linear-gradient(145deg, #180308, #390611, #100205);
-  padding: 25px 16px;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  z-index: -1;
+  background: radial-gradient(circle, #b000352e, transparent 55%);
+  animation: redGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes redGlow {
+  from { transform: scale(.7); opacity: .4; }
+  to { transform: scale(1.3); opacity: 1; }
+}
+
+/* SMALL TOP BAR */
 header {
-  max-width: 900px;
-  margin: 0 auto 35px;
-}
-
-.top {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: 5px;
-}
-
-.logo span {
-  color: #ff405c;
-}
-
-.status {
-  color: #d9aab4;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-.tabs {
-  display: flex;
-  gap: 9px;
-  background: #ffffff0d;
-  border: 1px solid #ffffff20;
-  border-radius: 14px;
-  padding: 6px;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px;
+  background: #080808;
+  border-bottom: 1px solid #48101f;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .tab {
-  flex: 1;
-  border: none;
-  border-radius: 10px;
-  background: transparent;
-  color: #d9b5bd;
-  padding: 13px 8px;
-  font-size: 14px;
-  font-weight: bold;
+  background: #16070c;
+  color: #ddd;
+  border: 1px solid #48101f;
+  border-radius: 9px;
+  padding: 8px 13px;
+  font-size: 12px;
   cursor: pointer;
 }
 
-.tab.active {
-  background: #a92340;
+.tab.active, .tab:hover {
+  background: #a00032;
   color: white;
+  box-shadow: 0 0 12px #ff174455;
 }
 
+/* MAIN LAYOUT */
 main {
-  max-width: 850px;
-  margin: auto;
+  width: min(1100px, 95%);
+  margin: 18px auto;
 }
 
 .page {
   display: none;
-  animation: appear .2s ease;
 }
 
 .page.active {
   display: block;
 }
 
-@keyframes appear {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+/* BROWSER AREA */
+.browser {
+  width: 100%;
+  min-height: 62vh;
+  background: rgba(8, 8, 8, .94);
+  border: 1px solid #531126;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 25px #ff174411;
 }
 
-.home {
+.browser-top {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px;
+  background: #12080c;
+  border-bottom: 1px solid #45101e;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.browser-dots span {
+  width: 8px;
+  height: 8px;
+  background: #ff315f;
+  border-radius: 50%;
+}
+
+.address {
+  flex: 1;
+  min-width: 0;
+  background: #050505;
+  color: #aaa;
+  border: 1px solid #421020;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.browser-content {
+  min-height: 55vh;
+  padding: 20px;
   text-align: center;
-  padding-top: 55px;
+}
+
+.browser-content h2 {
+  color: #ff315f;
+}
+
+.browser-content p {
+  color: #999;
+}
+
+/* GAMES IN A ROW */
+.games-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 12px 2px;
+  margin-bottom: 15px;
+}
+
+.game {
+  flex: 0 0 125px;
+  padding: 14px 8px;
+  text-align: center;
+  background: #17070d;
+  border: 1px solid #68152b;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.game:hover {
+  border-color: #ff1744;
+  box-shadow: 0 0 15px #ff174455;
+}
+
+/* CRIMSON UNDER BROWSER */
+.crimson-area {
+  text-align: center;
+  padding: 28px 10px 45px;
 }
 
 .big-logo {
-  font-size: clamp(42px, 10vw, 72px);
+  display: inline-block;
+  font-size: clamp(42px, 10vw, 75px);
   font-weight: 900;
   letter-spacing: 9px;
-  margin-bottom: 32px;
-  text-shadow: 0 0 30px #ff304f66;
-}
-
-.big-logo span {
-  color: #ff405c;
+  margin: 5px 0 15px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  background: linear-gradient(90deg, #ff1744, #ff00cc, #ff405c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 12px #ff174455);
+  transition: transform .2s, filter .2s;
 }
 
 .search {
-  display: flex;
-  background: #ffffff12;
-  border: 1px solid #ffffff30;
-  border-radius: 50px;
-  padding: 7px;
-  margin: 0 auto 38px;
-  max-width: 620px;
-}
-
-.search input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
+  width: min(550px, 95%);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #a51a40;
+  background: #10090c;
+  color: white;
+  font-size: 15px;
   outline: none;
-  color: white;
-  padding: 12px 17px;
-  font-size: 16px;
 }
 
-.search input::placeholder {
-  color: #d5b9bf;
+.search:focus {
+  box-shadow: 0 0 15px #ff1744;
 }
 
-.search button {
-  border: none;
-  border-radius: 50px;
-  background: #e52c49;
-  color: white;
-  padding: 0 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.shortcuts {
+.quick-links {
   display: flex;
   justify-content: center;
-  gap: 13px;
   flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
 }
 
-.shortcut, .card {
-  text-decoration: none;
+.quick-links button {
+  background: #16070c;
+  border: 1px solid #68152b;
   color: white;
-  background: #ffffff10;
-  border: 1px solid #ffffff20;
-  border-radius: 16px;
-  transition: .2s;
-}
-
-.shortcut {
-  width: 105px;
-  padding: 17px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.shortcut:hover, .card:hover {
-  background: #ffffff20;
-  transform: translateY(-3px);
-}
-
-.shortcut svg {
-  width: 27px;
-  height: 27px;
-}
-
-.shortcut span {
-  font-size: 13px;
-  font-weight: bold;
-}
-
-h1 {
-  font-size: 32px;
-  margin: 25px 0 10px;
-}
-
-.subtitle {
-  color: #d7aab4;
-  margin-bottom: 28px;
-  line-height: 1.5;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
-  gap: 13px;
-}
-
-.card {
-  display: block;
-  padding: 22px;
-}
-
-.card h3 {
-  margin-bottom: 8px;
-}
-
-.card p {
-  color: #d7aab4;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.setting {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff10;
-  border: 1px solid #ffffff20;
-  border-radius: 13px;
-  padding: 17px;
-  margin-bottom: 12px;
-}
-
-.setting p {
-  color: #d7aab4;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.setting button {
-  background: #a92340;
-  color: white;
-  border: none;
+  padding: 9px 15px;
   border-radius: 9px;
-  padding: 10px 14px;
   cursor: pointer;
+}
+
+.quick-links button:hover {
+  background: #a00032;
 }
 
 footer {
   text-align: center;
-  color: #c99ba5;
+  color: #75404e;
+  padding: 20px;
   font-size: 11px;
-  letter-spacing: 3px;
-  margin: 60px 0 20px;
-}
-
-body.light {
-  background: linear-gradient(145deg, #f4dce2, #e9b9c5);
-  color: #310b16;
-}
-
-body.light .tabs,
-body.light .shortcut,
-body.light .card,
-body.light .setting,
-body.light .search {
-  background: #ffffff55;
-  border-color: #8d3048;
-}
-
-body.light .tab:not(.active),
-body.light .status,
-body.light .subtitle,
-body.light .card p,
-body.light .setting p,
-body.light footer {
-  color: #612033;
-}
-
-@media(max-width: 450px) {
-  .tab { font-size: 12px; padding: 12px 3px; }
-  .home { padding-top: 35px; }
-  .shortcut { width: 90px; }
 }
 </style>
 </head>
@@ -288,144 +231,153 @@ body.light footer {
 <body>
 
 <header>
-  <div class="top">
-    <div class="logo">CRIM<span>SON</span></div>
-    <div class="status">YOUR SPACE</div>
-  </div>
-
-  <nav class="tabs">
-    <button class="tab active" data-page="home">Home</button>
-    <button class="tab" data-page="games">Games</button>
-    <button class="tab" data-page="explore">Explore</button>
-    <button class="tab" data-page="settings">Settings</button>
-  </nav>
+  <button class="tab active" onclick="showPage('home',this)">Home</button>
+  <button class="tab" onclick="showPage('games',this)">Games</button>
+  <button class="tab" onclick="showPage('youtube',this)">YouTube</button>
+  <button class="tab" onclick="showPage('tiktok',this)">TikTok</button>
 </header>
 
 <main>
 
-  <section class="page active home" id="home">
-    <div class="big-logo">CRIM<span>SON</span></div>
+<section id="home" class="page active">
 
-    <form class="search" action="https://www.google.com/search" method="GET">
-      <input type="search" name="q" placeholder="Search the web..." required>
-      <button type="submit">Search</button>
+  <div class="browser">
+    <div class="browser-top">
+      <div class="browser-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="address">CRIMSON Browser</div>
+    </div>
+
+    <div class="browser-content">
+      <h2>WELCOME TO CRIMSON</h2>
+      <p>Your own corner of the internet.</p>
+
+      <div class="games-row">
+        <div class="game" onclick="showPage('games')">GAMES</div>
+        <div class="game" onclick="showPage('youtube')">YOUTUBE</div>
+        <div class="game" onclick="showPage('tiktok')">TIKTOK</div>
+        <div class="game" onclick="showPage('home')">HOME</div>
+      </div>
+
+      <p>Choose a section above to get started.</p>
+    </div>
+  </div>
+
+  <div class="crimson-area">
+    <h1 class="big-logo" id="movingTitle">CRIMSON</h1>
+    <form onsubmit="searchGoogle(event)">
+      <input class="search" id="searchBox" placeholder="Search the web...">
     </form>
 
-    <div class="shortcuts">
-      <a class="shortcut" href="https://www.youtube.com">
-        <svg viewBox="0 0 24 24" fill="#ff3333">
-          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/>
-        </svg>
-        <span>YouTube</span>
-      </a>
-
-      <a class="shortcut" href="https://www.tiktok.com">
-        <svg viewBox="0 0 24 24" fill="white">
-          <path d="M19.6 7.1a6.5 6.5 0 0 1-4.2-4.2V2h-4v13.8a2.8 2.8 0 1 1-2.8-2.8c.4 0 .8.1 1.1.2V9.1a7 7 0 1 0 5.7 6.9V9a10.5 10.5 0 0 0 4.2 1z"/>
-        </svg>
-        <span>TikTok</span>
-      </a>
-
-      <a class="shortcut" href="https://www.crazygames.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#ff536c" stroke-width="2" stroke-linecap="round">
-          <path d="M6 9h12a4 4 0 0 1 3.8 5.2l-1 3A2.5 2.5 0 0 1 17 18l-2-2H9l-2 2a2.5 2.5 0 0 1-3.8-.8l-1-3A4 4 0 0 1 6 9z"/>
-          <path d="M8 12v4M6 14h4M16 13h.01M18 15h.01"/>
-        </svg>
-        <span>Games</span>
-      </a>
-
-      <a class="shortcut" href="https://www.google.com">
-        <svg viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M21.6 12.2H12v-4h9.4z"/>
-          <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.5c-.9.6-2 1-3.4 1z"/>
-          <path fill="#FBBC05" d="M6.4 14a6 6 0 0 1 0-4V7.4H3a10 10 0 0 0 0 9.2z"/>
-          <path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.9 1.5l2.9-2.9A9.7 9.7 0 0 0 12 2a10 10 0 0 0-9 5.4l3.4 2.6z"/>
-        </svg>
-        <span>Google</span>
-      </a>
+    <div class="quick-links">
+      <button onclick="showPage('youtube')">YouTube</button>
+      <button onclick="showPage('tiktok')">TikTok</button>
+      <button onclick="showPage('games')">Games</button>
     </div>
-  </section>
+  </div>
 
-  <section class="page" id="games">
-    <h1>Games</h1>
-    <p class="subtitle">Your gaming corner. Choose a destination.</p>
-    <div class="cards">
-      <a class="card" href="https://www.crazygames.com">
-        <h3>CrazyGames</h3>
-        <p>Explore browser games.</p>
-      </a>
-      <a class="card" href="https://www.coolmathgames.com">
-        <h3>Coolmath Games</h3>
-        <p>Browse puzzles and games.</p>
-      </a>
-      <a class="card" href="https://itch.io/games">
-        <h3>itch.io</h3>
-        <p>Discover indie games.</p>
-      </a>
+</section>
+
+<section id="games" class="page">
+  <div class="browser">
+    <div class="browser-top">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="address">CRIMSON / Games</div>
     </div>
-  </section>
-
-  <section class="page" id="explore">
-    <h1>Explore</h1>
-    <p class="subtitle">A few places to start exploring.</p>
-    <div class="cards">
-      <a class="card" href="https://www.wikipedia.org">
-        <h3>Wikipedia</h3>
-        <p>Explore information and topics.</p>
-      </a>
-      <a class="card" href="https://www.youtube.com">
-        <h3>YouTube</h3>
-        <p>Watch videos and discover creators.</p>
-      </a>
-      <a class="card" href="https://www.google.com">
-        <h3>Google</h3>
-        <p>Search the web.</p>
-      </a>
-    </div>
-  </section>
-
-  <section class="page" id="settings">
-    <h1>Settings</h1>
-    <p class="subtitle">Make CRIMSON feel like yours.</p>
-
-    <div class="setting">
-      <div>
-        <strong>Light appearance</strong>
-        <p>Switch between dark and light themes.</p>
+    <div class="browser-content">
+      <h2>GAMES</h2>
+      <p>Your games section. More games can be added here.</p>
+      <div class="games-row">
+        <div class="game">GAME 01</div>
+        <div class="game">GAME 02</div>
+        <div class="game">GAME 03</div>
+        <div class="game">GAME 04</div>
       </div>
-      <button id="themeButton">Switch</button>
     </div>
+  </div>
+</section>
 
-    <div class="setting">
-      <div>
-        <strong>About CRIMSON</strong>
-        <p>Your personal starting point on the web.</p>
-      </div>
-      <strong>V1.0</strong>
+<section id="youtube" class="page">
+  <div class="browser">
+    <div class="browser-top">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="address">CRIMSON / YouTube</div>
     </div>
-  </section>
+    <div class="browser-content">
+      <h2>YouTube</h2>
+      <p>YouTube may block its full website from being shown inside CRIMSON.</p>
+      <a href="https://www.youtube.com" target="_blank" style="color:#ff5278">
+        Open YouTube in a new tab
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="tiktok" class="page">
+  <div class="browser">
+    <div class="browser-top">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="address">CRIMSON / TikTok</div>
+    </div>
+    <div class="browser-content">
+      <h2>TikTok</h2>
+      <p>TikTok may block its full website from being shown inside CRIMSON.</p>
+      <a href="https://www.tiktok.com" target="_blank" style="color:#ff5278">
+        Open TikTok in a new tab
+      </a>
+    </div>
+  </div>
+</section>
 
 </main>
 
-<footer>YOUR WORLD. YOUR STARTING POINT.</footer>
+<footer>CRIMSON — YOUR WORLD, YOUR SPACE</footer>
 
 <script>
-const tabs = document.querySelectorAll(".tab");
-const pages = document.querySelectorAll(".page");
+function showPage(name, button) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
 
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    tabs.forEach(item => item.classList.remove("active"));
-    pages.forEach(page => page.classList.remove("active"));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
 
-    tab.classList.add("active");
-    document.getElementById(tab.dataset.page).classList.add("active");
-  });
+  if (button) {
+    button.classList.add('active');
+  } else {
+    document.querySelectorAll('.tab').forEach(t => {
+      if (t.textContent.toLowerCase() === name) t.classList.add('active');
+    });
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function searchGoogle(event) {
+  event.preventDefault();
+  const q = document.getElementById('searchBox').value.trim();
+  if (q) {
+    document.querySelector('.address').textContent = 'Searching: ' + q;
+    document.querySelector('.browser-content').innerHTML =
+      '<h2>SEARCHING</h2><p>Your search is ready. Google results need to open separately because Google blocks embedded search pages.</p><a style="color:#ff5278" href="https://www.google.com/search?q=' +
+      encodeURIComponent(q) + '" target="_blank">View search results</a>';
+  }
+}
+
+const title = document.getElementById('movingTitle');
+
+function resetTitle() {
+  title.style.transform = 'scale(1)';
+  title.style.filter = 'drop-shadow(0 0 12px #ff174455)';
+}
+
+title.addEventListener('pointerdown', () => {
+  title.style.transform = 'scale(1.06)';
+  title.style.filter = 'drop-shadow(0 0 12px #ff1744) drop-shadow(0 0 25px #ff00cc)';
 });
 
-document.getElementById("themeButton").addEventListener("click", () => {
-  document.body.classList.toggle("light");
-});
+title.addEventListener('pointerup', resetTitle);
+title.addEventListener('pointercancel', resetTitle);
+title.addEventListener('pointerleave', resetTitle);
 </script>
 
 </body>
