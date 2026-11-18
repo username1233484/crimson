@@ -119,6 +119,7 @@ header {
 
 .tiles {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   width: 100%;
   max-width: 600px;
@@ -126,7 +127,7 @@ header {
 }
 
 .tile {
-  flex: 1;
+  flex: 0 0 calc((100% - 20px) / 3);
   min-width: 0;
   height: 46px;
   background: #101010;
@@ -333,6 +334,36 @@ header {
   border-radius: 22px;
 }
 
+/* SPOTIFY PAGE */
+
+.spotify-window {
+  width: 100%;
+  height: 78vh;
+  min-height: 480px;
+  border: 2px solid var(--red);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #080808;
+  box-shadow: 0 0 12px #ff174f66;
+}
+
+.spotify-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #121212;
+}
+
+.spotify-help {
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 650px;
+  margin: 15px auto;
+}
+
 /* GAMES */
 
 .game-grid {
@@ -491,6 +522,10 @@ header {
     padding: 7px 8px;
     font-size: 10px;
   }
+  .spotify-window {
+    height: 75vh;
+    min-height: 420px;
+  }
 }
 </style>
 </head>
@@ -528,6 +563,10 @@ header {
 
     <button class="tile" onclick="showPage('gamesPage')">
       <div class="symbol">✦</div><span>GAMES</span>
+    </button>
+
+    <button class="tile" onclick="showPage('spotifyPage')">
+      <div class="symbol">♫</div><span>SPOTIFY</span>
     </button>
   </div>
 
@@ -601,6 +640,40 @@ header {
   <a class="youtube-open" href="https://www.youtube.com"
     target="_blank" rel="noopener">
     OPEN YOUTUBE SEARCH
+  </a>
+
+</section>
+
+<!-- SPOTIFY PAGE -->
+
+<section class="page" id="spotifyPage">
+
+  <button class="back-button" onclick="showPage('homePage')">
+    ← HOME
+  </button>
+
+  <div class="page-heading">SPOTIFY</div>
+
+  <div class="spotify-window">
+    <iframe
+      class="spotify-frame"
+      src="https://open.spotify.com/"
+      title="Spotify website"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="spotify-help">
+    This attempts to load the actual Spotify website.
+    If Spotify blocks the embedded window, open it directly below.
+  </div>
+
+  <a class="youtube-open"
+    href="https://open.spotify.com/"
+    target="_blank" rel="noopener">
+    OPEN SPOTIFY
   </a>
 
 </section>
