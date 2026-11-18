@@ -69,7 +69,7 @@ header {
   to { text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88; }
 }
 
-/* SEARCH BAR */
+/* SEARCH */
 
 .search {
   width: 100%;
@@ -175,43 +175,51 @@ header {
 
 .back-button { margin-bottom: 18px; }
 
-/* SEARCH RESULTS WINDOW */
+/* GOOGLE SEARCH POPUP */
 
 .results-window {
   display: none;
-  width: 100%;
-  max-width: 850px;
-  margin: 25px auto 0;
+  position: fixed;
+  z-index: 500;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
+  max-width: 1000px;
+  margin: auto;
   background: #090909;
   border: 2px solid var(--red);
   border-radius: 13px;
   overflow: hidden;
-  box-shadow: 0 0 8px #ff174f88, 0 0 20px #ff174f44;
+  box-shadow: 0 0 15px #ff174f88;
 }
 
-.results-window.visible { display: block; }
+.results-window.visible {
+  display: flex;
+  flex-direction: column;
+}
 
 .results-toolbar {
+  flex-shrink: 0;
   min-height: 52px;
-  padding: 10px 12px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   background: #16070c;
-  border-bottom: 1px solid #7d102c;
+  border-bottom: 1px solid var(--red);
 }
 
 .results-brand {
   color: var(--red);
-  font-size: 17px;
   font-weight: 900;
   letter-spacing: 2px;
+  font-size: 15px;
 }
 
 .results-actions {
   display: flex;
-  gap: 7px;
+  gap: 8px;
 }
 
 .results-actions button,
@@ -224,31 +232,33 @@ header {
   font-size: 11px;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .results-query {
-  padding: 11px 14px;
-  color: #bbb;
+  flex-shrink: 0;
+  padding: 10px;
+  color: #aaa;
   font-size: 12px;
   border-bottom: 1px solid #292929;
   overflow-wrap: anywhere;
 }
 
 .results-frame {
-  display: block;
   width: 100%;
-  height: 68vh;
-  min-height: 400px;
+  flex: 1;
+  min-height: 0;
   border: 0;
-  background: #090909;
+  background: white;
 }
 
 .results-fallback {
-  padding: 15px;
+  flex-shrink: 0;
+  padding: 9px;
   text-align: center;
-  color: #aaa;
-  font-size: 12px;
-  line-height: 1.6;
+  color: #999;
+  font-size: 11px;
+  background: #090909;
   border-top: 1px solid #292929;
 }
 
@@ -469,10 +479,18 @@ header {
 @media (max-width: 500px) {
   .game-frame { height: 58vh; }
   .game-wrap { padding: 7px; }
-  .results-frame { height: 65vh; min-height: 350px; }
-  .results-brand { font-size: 14px; }
+  .results-window {
+    inset: 2%;
+    width: 96%;
+    height: 96%;
+  }
+  .results-brand { font-size: 12px; }
+  .results-actions { gap: 5px; }
   .results-actions button,
-  .results-actions a { padding: 7px 9px; }
+  .results-actions a {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
 }
 </style>
 </head>
@@ -494,7 +512,7 @@ header {
 
   <form class="search" onsubmit="searchWeb(event)">
     <input id="searchInput" type="search"
-      placeholder="Search the web..." autocomplete="off">
+      placeholder="Search Google..." autocomplete="off">
     <button type="submit">GO</button>
   </form>
 
@@ -513,35 +531,39 @@ header {
     </button>
   </div>
 
-  <!-- CRIMSON SEARCH WINDOW -->
+  <!-- GOOGLE POPUP -->
 
   <div class="results-window" id="results">
+
     <div class="results-toolbar">
-      <div class="results-brand">CRIMSON SEARCH</div>
+      <div class="results-brand">GOOGLE SEARCH</div>
 
       <div class="results-actions">
-        <a id="openResults" href="#" target="_blank" rel="noopener">
-          OPEN RESULTS
+        <a id="openResults" href="#"
+          target="_blank" rel="noopener">
+          OPEN GOOGLE
         </a>
-        <button type="button" onclick="closeResults()">CLOSE</button>
+
+        <button type="button" onclick="closeResults()">
+          CLOSE ×
+        </button>
       </div>
     </div>
 
     <div class="results-query" id="resultsQuery">
-      Search results
+      GOOGLE RESULTS
     </div>
 
     <iframe
       class="results-frame"
       id="searchFrame"
-      title="Search results"
-      referrerpolicy="strict-origin-when-cross-origin">
+      title="Google search results">
     </iframe>
 
     <div class="results-fallback">
-      If results do not load in this window, press OPEN RESULTS above.
-      Your search will open directly in your browser.
+      If Google does not load inside this window, use OPEN GOOGLE.
     </div>
+
   </div>
 </section>
 
@@ -703,6 +725,9 @@ header {
 </div>
 
 <script>
+
+/* PAGE NAVIGATION */
+
 function showPage(pageId) {
   exitExpanded('gameWrap');
   exitExpanded('fnafWrap');
@@ -715,32 +740,28 @@ function showPage(pageId) {
   window.scrollTo(0, 0);
 }
 
-/* CRIMSON SEARCH */
+/* GOOGLE SEARCH POPUP */
 
 function searchWeb(event) {
   event.preventDefault();
 
-  const input = document.getElementById("searchInput");
-  const query = input.value.trim();
+  const query =
+    document.getElementById("searchInput").value.trim();
 
   if (!query) return;
 
-  const searchURL =
-    "https://www.google.com/search?igu=1&q=" +
+  const googleURL =
+    "https://www.google.com/search?q=" +
     encodeURIComponent(query);
 
-  const frame = document.getElementById("searchFrame");
-  const results = document.getElementById("results");
-  const openButton = document.getElementById("openResults");
-
   document.getElementById("resultsQuery").textContent =
-    "SEARCHING FOR: " + query;
+    "GOOGLE RESULTS FOR: " + query;
 
-  openButton.href = searchURL;
-  frame.src = searchURL;
+  document.getElementById("openResults").href = googleURL;
 
-  results.classList.add("visible");
-  results.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.getElementById("searchFrame").src = googleURL;
+
+  document.getElementById("results").classList.add("visible");
 }
 
 function closeResults() {
@@ -788,10 +809,14 @@ function loadYouTube(event) {
     encodeURIComponent(videoId);
 }
 
+/* GAME NAVIGATION */
+
 function leaveGame() {
   exitExpanded('gameWrap');
   showPage("gamesPage");
 }
+
+/* GAME FULLSCREEN */
 
 function toggleFullscreen(id) {
   const wrap = document.getElementById(id);
@@ -811,6 +836,7 @@ function exitExpanded(id) {
 
   document.body.style.overflow = "";
 }
+
 </script>
 
 </body>
