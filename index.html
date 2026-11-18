@@ -7,27 +7,18 @@
 <title>CRIMSON</title>
 
 <style>
-:root {
-  --red: #ff174f;
-}
-
-* {
-  box-sizing: border-box;
-}
+:root { --red: #ff174f; }
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 50% 35%, #26000d 0%, #100008 40%, #030303 85%);
+  background: radial-gradient(ellipse at 50% 35%, #26000d 0%, #100008 40%, #030303 85%);
   color: white;
   font-family: Arial, sans-serif;
   padding: 35px 12px;
   overflow-x: hidden;
-  position: relative;
 }
-
-/* MOVING NEON SNAKE */
 
 .snake {
   position: fixed;
@@ -36,7 +27,6 @@ body {
   height: calc(100% - 14px);
   pointer-events: none;
   z-index: 0;
-  overflow: visible;
 }
 
 .snake path {
@@ -46,29 +36,20 @@ body {
   stroke-linecap: round;
   stroke-dasharray: 55 1800;
   animation: snakeMove 9s linear infinite;
-  filter:
-    drop-shadow(0 0 4px #ff174f)
-    drop-shadow(0 0 9px #ff174f)
-    drop-shadow(0 0 16px #ff174f88);
+  filter: drop-shadow(0 0 4px #ff174f)
+          drop-shadow(0 0 9px #ff174f)
+          drop-shadow(0 0 16px #ff174f88);
 }
 
 @keyframes snakeMove {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: -1855;
-  }
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1855; }
 }
-
-/* CONTENT */
 
 .content {
   position: relative;
   z-index: 1;
 }
-
-/* TITLE */
 
 header {
   text-align: center;
@@ -84,12 +65,8 @@ header {
 }
 
 @keyframes glow {
-  from {
-    text-shadow: 0 0 5px var(--red), 0 0 10px var(--red);
-  }
-  to {
-    text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88;
-  }
+  from { text-shadow: 0 0 5px var(--red), 0 0 10px var(--red); }
+  to { text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88; }
 }
 
 /* SEARCH */
@@ -104,31 +81,44 @@ header {
   box-shadow: 0 0 5px var(--red), 0 0 12px #ff174f66;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   background: #101010;
-  gap: 12px;
+  gap: 10px;
 }
 
-.back {
+.search input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  caret-color: var(--red);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.search input::placeholder {
+  color: #999999;
+  -webkit-text-fill-color: #999999;
+  font-weight: normal;
+}
+
+.search button,
+.back-button {
   border: 1px solid var(--red);
-  background: #151515;
+  background: #1a080e;
   color: white;
   border-radius: 20px;
-  padding: 6px 12px;
-  box-shadow: 0 0 5px #ff174f77;
+  padding: 8px 13px;
   cursor: pointer;
 }
 
-.search-text {
-  color: #999;
-  font-size: 13px;
-}
-
-/* APPS */
+/* HOME APPS */
 
 .tiles {
   display: flex;
-  justify-content: center;
   gap: 10px;
   width: 100%;
   max-width: 600px;
@@ -144,7 +134,6 @@ header {
   border-radius: 9px;
   color: white;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 7px;
@@ -152,15 +141,10 @@ header {
   cursor: pointer;
 }
 
-.tile:active {
-  transform: scale(.97);
-}
-
 .symbol {
   color: var(--red);
   font-size: 21px;
   font-weight: bold;
-  text-shadow: 0 0 7px #ff174f88;
 }
 
 .tile span:last-child {
@@ -168,56 +152,316 @@ header {
   letter-spacing: .5px;
 }
 
+/* PAGE SYSTEM */
+
+.page {
+  display: none;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-heading {
+  color: var(--red);
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin: 12px 0 25px;
+  text-shadow: 0 0 10px #ff174f88;
+}
+
+.back-button {
+  margin-bottom: 18px;
+}
+
+/* SMALL GAME GRID */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.game-card {
+  display: block;
+  min-width: 0;
+  padding: 7px;
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  background: #101010;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 0 6px #ff174f88, 0 0 14px #ff174f44;
+}
+
+.game-card:active {
+  transform: scale(.97);
+}
+
+.game-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+  background: #111111;
+}
+
+.game-name {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: .5px;
+  padding: 9px 3px 3px;
+}
+
+.game-label {
+  display: block;
+  color: var(--red);
+  font-size: 10px;
+  padding: 2px 3px 4px;
+}
+
+/* GAME PAGE */
+
+.game-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.game-title {
+  color: var(--red);
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.fullscreen-button {
+  border: 1px solid var(--red);
+  background: #16070c;
+  color: white;
+  border-radius: 20px;
+  padding: 9px 13px;
+  cursor: pointer;
+  box-shadow: 0 0 7px #ff174f66;
+}
+
+.game-wrap {
+  width: 100%;
+  background: #000000;
+  border: 3px solid #171717;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 0 8px #ff174f66;
+}
+
+.game-frame {
+  width: 100%;
+  height: 65vh;
+  min-height: 350px;
+  display: block;
+  border: 2px solid var(--red);
+  border-radius: 5px;
+  background: #000000;
+}
+
+.game-note {
+  color: #999999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.game-wrap.expanded {
+  position: fixed;
+  z-index: 5;
+  inset: 35px 12px;
+  width: auto;
+  height: auto;
+  border: 2px solid var(--red);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-wrap.expanded .game-frame {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+@media (max-width: 500px) {
+  body { padding-top: 35px; }
+  .game-frame { height: 58vh; }
+  .game-wrap { padding: 7px; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- SNAKE ANIMATION -->
 <svg class="snake" viewBox="0 0 400 800" preserveAspectRatio="none">
-  <path d="M 35 15
-           H 365
-           Q 385 15 385 35
-           V 765
-           Q 385 785 365 785
-           H 35
-           Q 15 785 15 765
-           V 35
-           Q 15 15 35 15" />
+  <path d="M 35 15 H 365 Q 385 15 385 35 V 765 Q 385 785 365 785 H 35 Q 15 785 15 765 V 35 Q 15 15 35 15"/>
 </svg>
 
 <div class="content">
 
-<header>
-  <div class="logo">CRIMSON</div>
-</header>
+<!-- HOME -->
 
-<div class="search">
-  <button class="back" onclick="history.back()">←</button>
-  <span class="search-text">Search the web...</span>
-</div>
+<section class="page active" id="homePage">
 
-<div class="tiles">
+  <header>
+    <div class="logo">CRIMSON</div>
+  </header>
 
-  <button class="tile" onclick="window.open('https://www.youtube.com','_blank')">
-    <div class="symbol">▶</div>
-    <span>YOUTUBE</span>
+  <form class="search" onsubmit="searchWeb(event)">
+    <input id="searchInput" type="search"
+      placeholder="Search DuckDuckGo..." autocomplete="off">
+    <button type="submit">GO</button>
+  </form>
+
+  <div class="tiles">
+    <button class="tile" onclick="window.open('https://www.youtube.com','_blank')">
+      <div class="symbol">▶</div><span>YOUTUBE</span>
+    </button>
+
+    <button class="tile" onclick="window.open('https://www.tiktok.com','_blank')">
+      <div class="symbol">♪</div><span>TIKTOK</span>
+    </button>
+
+    <button class="tile" onclick="showPage('gamesPage')">
+      <div class="symbol">✦</div><span>GAMES</span>
+    </button>
+  </div>
+
+  <div id="results" style="display:none;max-width:600px;margin:25px auto;border:2px solid var(--red);border-radius:12px;overflow:hidden;">
+    <iframe id="searchFrame" title="DuckDuckGo results" style="width:100%;height:65vh;border:0;background:white;"></iframe>
+  </div>
+
+</section>
+
+<!-- GAMES PAGE -->
+
+<section class="page" id="gamesPage">
+
+  <button class="back-button" onclick="showPage('homePage')">
+    ← HOME
   </button>
 
-  <button class="tile" onclick="window.open('https://www.tiktok.com','_blank')">
-    <div class="symbol">♪</div>
-    <span>TIKTOK</span>
+  <div class="page-heading">GAMES</div>
+
+  <div class="game-grid">
+
+    <button class="game-card" onclick="showPage('geometryPage')">
+      <img
+        src="https://orbitbeats.org/data/image/GeometryDash.png"
+        alt="Geometry Dash"
+      >
+      <span class="game-name">GEOMETRY DASH</span>
+      <span class="game-label">PLAY GAME →</span>
+    </button>
+
+    <!-- ADD FUTURE GAME CARDS HERE -->
+
+  </div>
+
+</section>
+
+<!-- GEOMETRY DASH PAGE -->
+
+<section class="page" id="geometryPage">
+
+  <button class="back-button" onclick="leaveGame()">
+    ← BACK TO GAMES
   </button>
 
-  <button class="tile" onclick="window.open('https://geometrydash.com/game/index.html','_blank')">
-    <div class="symbol">✦</div>
-    <span>GAMES</span>
-  </button>
+  <div class="game-toolbar">
+    <div class="game-title">GEOMETRY DASH</div>
+    <button class="fullscreen-button" id="fullscreenButton"
+      onclick="toggleFullscreen()">FULLSCREEN</button>
+  </div>
+
+  <div class="game-wrap" id="gameWrap">
+    <iframe
+      class="game-frame"
+      id="gameFrame"
+      src="https://geometrydash.com/game/index.html"
+      title="Geometry Dash"
+      allow="fullscreen; autoplay"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="game-note">
+    Turn your phone sideways for a wider game view.
+  </div>
+
+</section>
 
 </div>
 
-</div>
+<script>
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(pageId).classList.add("active");
+  window.scrollTo(0, 0);
+}
+
+function searchWeb(event) {
+  event.preventDefault();
+
+  const query = document.getElementById("searchInput").value.trim();
+  if (!query) return;
+
+  document.getElementById("searchFrame").src =
+    "https://html.duckduckgo.com/html/?q=" +
+    encodeURIComponent(query);
+
+  const results = document.getElementById("results");
+  results.style.display = "block";
+  results.scrollIntoView({ behavior: "smooth" });
+}
+
+function leaveGame() {
+  exitExpanded();
+  showPage("gamesPage");
+}
+
+function toggleFullscreen() {
+  const wrap = document.getElementById("gameWrap");
+  const button = document.getElementById("fullscreenButton");
+
+  if (wrap.classList.contains("expanded")) {
+    exitExpanded();
+  } else {
+    wrap.classList.add("expanded");
+    button.textContent = "EXIT FULLSCREEN";
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function exitExpanded() {
+  document.getElementById("gameWrap").classList.remove("expanded");
+  document.getElementById("fullscreenButton").textContent = "FULLSCREEN";
+  document.body.style.overflow = "";
+}
+</script>
 
 </body>
 </html>
-
