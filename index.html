@@ -69,8 +69,6 @@ header {
   to { text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88; }
 }
 
-/* SEARCH */
-
 .search {
   width: 100%;
   max-width: 600px;
@@ -115,8 +113,6 @@ header {
   cursor: pointer;
 }
 
-/* HOME BUTTONS */
-
 .tiles {
   display: flex;
   flex-wrap: wrap;
@@ -153,8 +149,6 @@ header {
   letter-spacing: .5px;
 }
 
-/* PAGES */
-
 .page {
   display: none;
   width: 100%;
@@ -175,8 +169,6 @@ header {
 }
 
 .back-button { margin-bottom: 18px; }
-
-/* GOOGLE SEARCH POPUP */
 
 .results-window {
   display: none;
@@ -263,8 +255,6 @@ header {
   border-top: 1px solid #292929;
 }
 
-/* YOUTUBE PAGE */
-
 .youtube-search {
   display: flex;
   gap: 8px;
@@ -313,7 +303,8 @@ header {
   border: 0;
 }
 
-.youtube-help {
+.youtube-help,
+.spotify-help {
   color: #aaa;
   font-size: 12px;
   text-align: center;
@@ -334,8 +325,6 @@ header {
   border-radius: 22px;
 }
 
-/* SPOTIFY PAGE */
-
 .spotify-window {
   width: 100%;
   height: 78vh;
@@ -354,17 +343,6 @@ header {
   border: 0;
   background: #121212;
 }
-
-.spotify-help {
-  text-align: center;
-  color: #aaa;
-  font-size: 12px;
-  line-height: 1.6;
-  max-width: 650px;
-  margin: 15px auto;
-}
-
-/* GAMES */
 
 .game-grid {
   display: grid;
@@ -413,8 +391,6 @@ header {
   font-size: 10px;
   padding: 2px 3px 4px;
 }
-
-/* BASKETBALL STARS CUSTOM THUMBNAIL */
 
 .basketball-art {
   position: relative;
@@ -477,8 +453,6 @@ header {
   letter-spacing: 2px;
   color: #ff607d;
 }
-
-/* GAME PLAYER */
 
 .game-toolbar {
   display: flex;
@@ -606,8 +580,6 @@ header {
 
 <div class="content">
 
-<!-- HOME -->
-
 <section class="page active" id="homePage">
   <header>
     <div class="logo">CRIMSON</div>
@@ -638,46 +610,27 @@ header {
     </button>
   </div>
 
-  <!-- GOOGLE POPUP -->
-
   <div class="results-window" id="results">
     <div class="results-toolbar">
       <div class="results-brand">GOOGLE SEARCH</div>
-
       <div class="results-actions">
         <a id="openResults" href="#"
-          target="_blank" rel="noopener">
-          OPEN GOOGLE
-        </a>
-
-        <button type="button" onclick="closeResults()">
-          CLOSE ×
-        </button>
+          target="_blank" rel="noopener">OPEN GOOGLE</a>
+        <button type="button" onclick="closeResults()">CLOSE ×</button>
       </div>
     </div>
 
-    <div class="results-query" id="resultsQuery">
-      GOOGLE RESULTS
-    </div>
-
-    <iframe class="results-frame"
-      id="searchFrame"
-      title="Google search results">
-    </iframe>
-
+    <div class="results-query" id="resultsQuery">GOOGLE RESULTS</div>
+    <iframe class="results-frame" id="searchFrame"
+      title="Google search results"></iframe>
     <div class="results-fallback">
       If Google does not load inside this window, use OPEN GOOGLE.
     </div>
   </div>
 </section>
 
-<!-- YOUTUBE PAGE -->
-
 <section class="page" id="youtubePage">
-  <button class="back-button" onclick="showPage('homePage')">
-    ← HOME
-  </button>
-
+  <button class="back-button" onclick="showPage('homePage')">← HOME</button>
   <div class="page-heading">YOUTUBE</div>
 
   <form class="youtube-search" onsubmit="loadYouTube(event)">
@@ -692,8 +645,7 @@ header {
       title="YouTube video player"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen>
-    </iframe>
+      allowfullscreen></iframe>
   </div>
 
   <div class="youtube-help">
@@ -702,18 +654,11 @@ header {
   </div>
 
   <a class="youtube-open" href="https://www.youtube.com"
-    target="_blank" rel="noopener">
-    OPEN YOUTUBE SEARCH
-  </a>
+    target="_blank" rel="noopener">OPEN YOUTUBE SEARCH</a>
 </section>
 
-<!-- SPOTIFY PAGE -->
-
 <section class="page" id="spotifyPage">
-  <button class="back-button" onclick="showPage('homePage')">
-    ← HOME
-  </button>
-
+  <button class="back-button" onclick="showPage('homePage')">← HOME</button>
   <div class="page-heading">SPOTIFY</div>
 
   <div class="spotify-window">
@@ -722,44 +667,29 @@ header {
       title="Spotify website"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen>
-    </iframe>
+      allowfullscreen></iframe>
   </div>
 
   <div class="spotify-help">
-    This attempts to load the actual Spotify website.
     If Spotify blocks the embedded window, open it directly below.
   </div>
 
-  <a class="youtube-open"
-    href="https://open.spotify.com/"
-    target="_blank" rel="noopener">
-    OPEN SPOTIFY
-  </a>
+  <a class="youtube-open" href="https://open.spotify.com/"
+    target="_blank" rel="noopener">OPEN SPOTIFY</a>
 </section>
 
-<!-- GAMES PAGE -->
-
 <section class="page" id="gamesPage">
-  <button class="back-button" onclick="showPage('homePage')">
-    ← HOME
-  </button>
-
+  <button class="back-button" onclick="showPage('homePage')">← HOME</button>
   <div class="page-heading">GAMES</div>
 
   <div class="game-grid">
 
-    <!-- GAME 1: GEOMETRY DASH -->
-
     <button class="game-card" onclick="showPage('geometryPage')">
-      <img
-        src="https://orbitbeats.org/data/image/GeometryDash.png"
+      <img src="https://orbitbeats.org/data/image/GeometryDash.png"
         alt="Geometry Dash">
       <span class="game-name">GEOMETRY DASH</span>
       <span class="game-label">PLAY GAME →</span>
     </button>
-
-    <!-- GAME 2: FNAF -->
 
     <button class="game-card" onclick="showPage('fnafPage')">
       <img
@@ -769,31 +699,22 @@ header {
       <span class="game-label">PLAY GAME →</span>
     </button>
 
-    <!-- GAME 3: BASKETBALL STARS -->
-
     <button class="game-card" onclick="showPage('basketballPage')">
-
       <div class="basketball-art">
         <div class="art-tag">CRIMSON ORIGINAL</div>
         <div class="ball"></div>
         <div class="court"></div>
         <div class="art-title">BASKETBALL STARS</div>
       </div>
-
       <span class="game-name">BASKETBALL STARS</span>
       <span class="game-label">PLAY GAME →</span>
-
     </button>
 
   </div>
 </section>
 
-<!-- GEOMETRY DASH PAGE -->
-
 <section class="page" id="geometryPage">
-  <button class="back-button" onclick="leaveGame()">
-    ← BACK TO GAMES
-  </button>
+  <button class="back-button" onclick="leaveGame()">← BACK TO GAMES</button>
 
   <div class="game-toolbar">
     <div class="game-title">GEOMETRY DASH</div>
@@ -803,122 +724,78 @@ header {
 
   <div class="game-wrap" id="gameWrap">
     <button class="exit-overlay"
-      onclick="exitExpanded('gameWrap')">
-      EXIT FULLSCREEN
-    </button>
-
-    <iframe class="game-frame"
-      id="gameFrame"
+      onclick="exitExpanded('gameWrap')">EXIT FULLSCREEN</button>
+    <iframe class="game-frame" id="gameFrame"
       src="https://geometrydash.com/game/index.html"
-      title="Geometry Dash"
-      allow="fullscreen; autoplay"
-      allowfullscreen>
-    </iframe>
+      title="Geometry Dash" allow="fullscreen; autoplay"
+      allowfullscreen></iframe>
   </div>
 
-  <div class="game-note">
-    Turn your phone sideways for a wider game view.
-  </div>
+  <div class="game-note">Turn your phone sideways for a wider game view.</div>
 </section>
 
-<!-- FNAF PAGE -->
-
 <section class="page" id="fnafPage">
-  <button class="back-button" onclick="showPage('gamesPage')">
-    ← BACK TO GAMES
-  </button>
-
+  <button class="back-button" onclick="showPage('gamesPage')">← BACK TO GAMES</button>
   <div class="page-heading">FIVE NIGHTS AT FREDDY'S</div>
 
   <div class="game-toolbar">
     <div class="game-title">FNAF 1 FAN RECREATION</div>
     <button class="fullscreen-button"
-      onclick="toggleFullscreen('fnafWrap')">
-      FULLSCREEN
-    </button>
+      onclick="toggleFullscreen('fnafWrap')">FULLSCREEN</button>
   </div>
 
   <div class="game-wrap" id="fnafWrap">
     <button class="exit-overlay"
-      onclick="exitExpanded('fnafWrap')">
-      EXIT FULLSCREEN
-    </button>
-
-    <iframe class="game-frame"
-      id="fnafFrame"
+      onclick="exitExpanded('fnafWrap')">EXIT FULLSCREEN</button>
+    <iframe class="game-frame" id="fnafFrame"
       src="https://yniverz.github.io/fnaf_web/"
       title="FNAF browser fan recreation"
-      allow="fullscreen; autoplay"
-      allowfullscreen>
-    </iframe>
+      allow="fullscreen; autoplay" allowfullscreen></iframe>
   </div>
 
   <div class="game-note">
-    Unofficial fan-made browser recreation.
-    If the game doesn't load inside this window, use OPEN GAME below.
+    Unofficial fan-made browser recreation. If it doesn't load,
+    use OPEN GAME below.
   </div>
 
-  <a class="youtube-open"
-    href="https://yniverz.github.io/fnaf_web/"
-    target="_blank" rel="noopener">
-    OPEN GAME
-  </a>
+  <a class="youtube-open" href="https://yniverz.github.io/fnaf_web/"
+    target="_blank" rel="noopener">OPEN GAME</a>
 </section>
 
-<!-- BASKETBALL STARS PAGE -->
-
 <section class="page" id="basketballPage">
-
-  <button class="back-button" onclick="showPage('gamesPage')">
-    ← BACK TO GAMES
-  </button>
-
+  <button class="back-button" onclick="showPage('gamesPage')">← BACK TO GAMES</button>
   <div class="page-heading">BASKETBALL STARS</div>
 
   <div class="game-toolbar">
     <div class="game-title">BASKETBALL STARS</div>
-
     <button class="fullscreen-button"
-      onclick="toggleFullscreen('basketballWrap')">
-      FULLSCREEN
-    </button>
+      onclick="toggleFullscreen('basketballWrap')">FULLSCREEN</button>
   </div>
 
   <div class="game-wrap" id="basketballWrap">
-
     <button class="exit-overlay"
-      onclick="exitExpanded('basketballWrap')">
-      EXIT FULLSCREEN
-    </button>
+      onclick="exitExpanded('basketballWrap')">EXIT FULLSCREEN</button>
 
     <iframe class="game-frame"
-      src="https://poki.com/en/g/basketball-stars"
+      src="https://miniclip.com/games/basketball-stars"
       title="Basketball Stars"
       allow="fullscreen; autoplay"
-      allowfullscreen>
-    </iframe>
-
+      allowfullscreen></iframe>
   </div>
 
   <div class="game-note">
-    Basketball Stars. If the embedded game is blocked,
+    Basketball Stars from Miniclip. If the embedded page is blocked,
     use OPEN GAME below.
   </div>
 
   <a class="youtube-open"
-    href="https://poki.com/en/g/basketball-stars"
-    target="_blank" rel="noopener">
-    OPEN GAME
-  </a>
-
+    href="https://miniclip.com/games/basketball-stars"
+    target="_blank" rel="noopener">OPEN GAME</a>
 </section>
 
 </div>
 
 <script>
-
-/* PAGE NAVIGATION */
-
 function showPage(pageId) {
   exitExpanded('gameWrap');
   exitExpanded('fnafWrap');
@@ -932,26 +809,20 @@ function showPage(pageId) {
   window.scrollTo(0, 0);
 }
 
-/* GOOGLE SEARCH POPUP */
-
 function searchWeb(event) {
   event.preventDefault();
 
-  const query =
-    document.getElementById("searchInput").value.trim();
-
+  const query = document.getElementById("searchInput").value.trim();
   if (!query) return;
 
   const googleURL =
-    "https://www.google.com/search?q=" +
-    encodeURIComponent(query);
+    "https://www.google.com/search?q=" + encodeURIComponent(query);
 
   document.getElementById("resultsQuery").textContent =
     "GOOGLE RESULTS FOR: " + query;
 
   document.getElementById("openResults").href = googleURL;
   document.getElementById("searchFrame").src = googleURL;
-
   document.getElementById("results").classList.add("visible");
 }
 
@@ -959,8 +830,6 @@ function closeResults() {
   document.getElementById("results").classList.remove("visible");
   document.getElementById("searchFrame").src = "about:blank";
 }
-
-/* YOUTUBE VIDEO PLAYER */
 
 function loadYouTube(event) {
   event.preventDefault();
@@ -984,9 +853,7 @@ function loadYouTube(event) {
         videoId = url.searchParams.get("v") || "";
       }
     }
-  } catch (error) {
-    /* Treat plain text as a video ID */
-  }
+  } catch (error) {}
 
   videoId = videoId.split(/[?&/]/)[0];
 
@@ -996,18 +863,13 @@ function loadYouTube(event) {
   }
 
   document.getElementById("youtubeFrame").src =
-    "https://www.youtube-nocookie.com/embed/" +
-    encodeURIComponent(videoId);
+    "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(videoId);
 }
-
-/* GAME NAVIGATION */
 
 function leaveGame() {
   exitExpanded('gameWrap');
   showPage("gamesPage");
 }
-
-/* GAME FULLSCREEN */
 
 function toggleFullscreen(id) {
   const wrap = document.getElementById(id);
@@ -1022,12 +884,9 @@ function toggleFullscreen(id) {
 
 function exitExpanded(id) {
   const wrap = document.getElementById(id);
-
   if (wrap) wrap.classList.remove("expanded");
-
   document.body.style.overflow = "";
 }
-
 </script>
 
 </body>
