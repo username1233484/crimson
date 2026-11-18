@@ -3,59 +3,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CRIMSON</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 50% 40%, #26000b 0%, #100006 38%, #030303 78%);
+  background: radial-gradient(ellipse at center, #26000b, #100006 45%, #030303 85%);
   color: white;
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
 }
 
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
+button, input { font: inherit; }
+button { cursor: pointer; }
 
 .snake {
   position: fixed;
   inset: 8px;
-  border: 2px solid transparent;
+  border: 2px solid #500016;
   border-radius: 18px;
   pointer-events: none;
   z-index: 0;
-  animation: snakeGlow 5s linear infinite;
+  box-shadow: 0 0 9px #8b001e;
 }
 
-.snake::before {
+.snake::after {
   content: "";
   position: absolute;
   inset: -2px;
   border: 2px solid transparent;
   border-top-color: #ff1744;
   border-radius: 18px;
-  filter: drop-shadow(0 0 7px #ff1744);
   animation: snakeMove 7s linear infinite;
+  filter: drop-shadow(0 0 7px #ff1744);
 }
 
 @keyframes snakeMove {
   to { transform: rotate(360deg); }
-}
-
-@keyframes snakeGlow {
-  50% { filter: drop-shadow(0 0 9px #8b001e); }
 }
 
 #home {
@@ -74,14 +61,12 @@ button {
   letter-spacing: 8px;
   color: #ff244f;
   text-shadow: 0 0 8px #ff1744, 0 0 25px #a00028;
-  animation: logoPulse 3s ease-in-out infinite;
+  animation: pulse 3s infinite;
   margin-bottom: 35px;
 }
 
-@keyframes logoPulse {
-  50% {
-    text-shadow: 0 0 14px #ff1744, 0 0 35px #c00035;
-  }
+@keyframes pulse {
+  50% { text-shadow: 0 0 18px #ff1744, 0 0 35px #c00035; }
 }
 
 .search {
@@ -90,17 +75,17 @@ button {
   border: 1px solid #ff1744;
   border-radius: 9px;
   background: #090909;
-  box-shadow: 0 0 12px #5b0018;
   overflow: hidden;
+  box-shadow: 0 0 12px #5b0018;
 }
 
 .search input {
   flex: 1;
   min-width: 0;
+  padding: 13px;
   background: transparent;
   border: 0;
   outline: none;
-  padding: 13px;
   color: white;
 }
 
@@ -126,14 +111,11 @@ button {
   border-radius: 8px;
   padding: 14px 4px;
   box-shadow: 0 0 8px #470014;
-  transition: .2s;
   font-weight: bold;
 }
 
-.app-btn:hover {
+.app-btn:active {
   background: #28000c;
-  box-shadow: 0 0 15px #ff1744;
-  transform: translateY(-2px);
 }
 
 .page {
@@ -144,15 +126,12 @@ button {
   padding: 25px 16px;
 }
 
-.page.active {
-  display: block;
-}
+.page.active { display: block; }
 
 .page-title {
   color: #ff3159;
   text-shadow: 0 0 10px #ff1744;
   text-align: center;
-  font-size: 30px;
 }
 
 .back-btn {
@@ -183,29 +162,26 @@ button {
   margin-top: 10px;
 }
 
-/* FULL GAME WINDOW */
+/* GAME WINDOW */
 
 .game-wrap {
   display: none;
   position: fixed;
-  inset: 12px;
+  inset: 10px;
   z-index: 100;
-  background: #050505;
+  background: black;
   border: 2px solid #ff1744;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 22px #ff1744;
 }
 
-.game-wrap.expanded {
-  display: block;
-}
+.game-wrap.expanded { display: block; }
 
 .game-wrap iframe {
   width: 100%;
   height: 100%;
   border: 0;
-  background: black;
 }
 
 .exit-overlay {
@@ -217,15 +193,15 @@ button {
   color: white;
   border: 1px solid #ff4267;
   border-radius: 7px;
-  padding: 10px 15px;
+  padding: 11px 15px;
 }
 
-/* YOUTUBE WINDOW */
+/* YOUTUBE OVERLAY */
 
 #youtubeOverlay {
   display: none;
   position: fixed;
-  inset: 12px;
+  inset: 10px;
   z-index: 300;
   background: #070707;
   border: 2px solid #ff1744;
@@ -235,15 +211,12 @@ button {
   flex-direction: column;
 }
 
-#youtubeOverlay.open {
-  display: flex;
-}
+#youtubeOverlay.open { display: flex; }
 
 .yt-top {
-  min-height: 54px;
+  min-height: 55px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 10px 13px;
   border-bottom: 1px solid #8e0027;
@@ -251,7 +224,7 @@ button {
 }
 
 .yt-brand {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: bold;
   color: #ff3159;
 }
@@ -266,7 +239,7 @@ button {
   background: #a5002a;
   border: 0;
   border-radius: 6px;
-  padding: 8px 13px;
+  padding: 9px 13px;
   color: white;
 }
 
@@ -274,6 +247,7 @@ button {
   padding: 14px;
   overflow-y: auto;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .yt-search {
@@ -320,12 +294,6 @@ button {
   border-radius: 9px;
   padding: 8px;
   cursor: pointer;
-  transition: .2s;
-}
-
-.yt-result:hover {
-  border-color: #ff1744;
-  box-shadow: 0 0 10px #65001e;
 }
 
 .yt-result img {
@@ -342,11 +310,10 @@ button {
   margin: 8px 2px;
 }
 
-#ytPlayer {
-  margin-top: 15px;
-}
+#ytPlayer { margin-top: 15px; }
 
 #ytPlayer iframe {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 1px solid #ff1744;
@@ -361,9 +328,7 @@ button {
 }
 
 @media (max-width: 450px) {
-  #ytResults {
-    grid-template-columns: 1fr;
-  }
+  #ytResults { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -372,7 +337,7 @@ button {
 
 <div class="snake"></div>
 
-<!-- HOME -->
+<!-- HOME SCREEN -->
 
 <main id="home">
   <div class="logo">CRIMSON</div>
@@ -383,9 +348,9 @@ button {
   </form>
 
   <div class="apps">
-    <button class="app-btn" onclick="openYoutube()">YOUTUBE</button>
-    <button class="app-btn" onclick="openTikTok()">TIKTOK</button>
-    <button class="app-btn" onclick="showPage('games')">GAMES</button>
+    <button type="button" class="app-btn" onclick="openYoutube()">YOUTUBE</button>
+    <button type="button" class="app-btn" onclick="openTikTok()">TIKTOK</button>
+    <button type="button" class="app-btn" onclick="showPage('games')">GAMES</button>
   </div>
 </main>
 
@@ -406,14 +371,13 @@ button {
 
 <div id="gameWrap" class="game-wrap">
   <button class="exit-overlay" onclick="exitGame()">EXIT ✕</button>
-  <iframe id="gameFrame"
-    src="about:blank"
+  <iframe id="gameFrame" src="about:blank"
     allow="fullscreen; autoplay"
     allowfullscreen>
   </iframe>
 </div>
 
-<!-- YOUTUBE WINDOW -->
+<!-- YOUTUBE WINDOW: NO EXTERNAL YOUTUBE LINK -->
 
 <div id="youtubeOverlay">
   <header class="yt-top">
@@ -429,7 +393,7 @@ button {
     </form>
 
     <div class="yt-note">
-      Search YouTube videos without leaving CRIMSON.
+      Search videos and play them inside this window.
     </div>
 
     <div id="ytResults">
@@ -442,21 +406,20 @@ button {
 
 <script>
 
-/* ADD YOUR YOUTUBE API KEY HERE */
+/* PUT YOUR RESTRICTED YOUTUBE API KEY HERE */
 
 const YOUTUBE_API_KEY = "PASTE_YOUR_API_KEY_HERE";
 
-/* HOME SEARCH */
+/* DUCKDUCKGO SEARCH */
 
 function searchWeb(event) {
   event.preventDefault();
+
   const query = document.getElementById("webSearch").value.trim();
   if (!query) return;
 
-  window.open(
-    "https://duckduckgo.com/?q=" + encodeURIComponent(query),
-    "_blank"
-  );
+  window.location.href =
+    "https://duckduckgo.com/?q=" + encodeURIComponent(query);
 }
 
 /* PAGE NAVIGATION */
@@ -480,33 +443,33 @@ function goHome() {
 
   document.getElementById("home").style.display = "flex";
   exitGame();
+  closeYoutube();
 }
 
 /* TIKTOK */
 
 function openTikTok() {
-  window.open("https://www.tiktok.com/", "_blank");
+  window.location.href = "https://www.tiktok.com/";
 }
 
 /* GAME WINDOW */
 
 function openGame() {
-  const wrap = document.getElementById("gameWrap");
   document.getElementById("gameFrame").src =
     "https://geometrydash.com/game/index.html";
 
-  wrap.classList.add("expanded");
+  document.getElementById("gameWrap").classList.add("expanded");
 }
 
 function exitGame() {
-  const wrap = document.getElementById("gameWrap");
-  wrap.classList.remove("expanded");
+  document.getElementById("gameWrap").classList.remove("expanded");
   document.getElementById("gameFrame").src = "about:blank";
 }
 
 /* YOUTUBE WINDOW */
 
 function openYoutube() {
+  // Opens the CRIMSON overlay, NOT youtube.com.
   document.getElementById("youtubeOverlay").classList.add("open");
 }
 
@@ -515,7 +478,7 @@ function closeYoutube() {
   document.getElementById("ytPlayer").replaceChildren();
 }
 
-/* REAL YOUTUBE SEARCH */
+/* YOUTUBE SEARCH */
 
 async function searchYouTube(event) {
   event.preventDefault();
@@ -526,18 +489,13 @@ async function searchYouTube(event) {
 
   if (!query) return;
 
-  if (
-    !YOUTUBE_API_KEY ||
-    YOUTUBE_API_KEY === "PASTE_YOUR_API_KEY_HERE"
-  ) {
-    results.innerHTML =
-      '<div class="status">Add your YouTube API key in the code first.</div>';
+  if (!YOUTUBE_API_KEY ||
+      YOUTUBE_API_KEY === "PASTE_YOUR_API_KEY_HERE") {
+    results.textContent = "Add your YouTube API key in the code first.";
     return;
   }
 
-  results.innerHTML =
-    '<div class="status">Searching YouTube...</div>';
-
+  results.innerHTML = '<div class="status">Searching YouTube...</div>';
   player.replaceChildren();
 
   try {
@@ -551,24 +509,20 @@ async function searchYouTube(event) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(
-        data.error?.message || "YouTube search failed."
-      );
+      throw new Error(data.error?.message || "Search failed.");
     }
 
     results.replaceChildren();
 
     if (!data.items || data.items.length === 0) {
-      results.innerHTML =
-        '<div class="status">No videos found.</div>';
+      results.innerHTML = '<div class="status">No videos found.</div>';
       return;
     }
 
     data.items.forEach(video => {
       const id = video.id.videoId;
       const title = video.snippet.title;
-      const thumbnail =
-        video.snippet.thumbnails.medium.url;
+      const thumbnail = video.snippet.thumbnails.medium.url;
 
       const card = document.createElement("div");
       card.className = "yt-result";
@@ -577,19 +531,21 @@ async function searchYouTube(event) {
       img.src = thumbnail;
       img.alt = "";
 
-      const text = document.createElement("p");
-      text.textContent = title;
+      const heading = document.createElement("p");
+      heading.textContent = title;
 
-      card.append(img, text);
+      card.append(img, heading);
 
       card.addEventListener("click", () => {
         player.replaceChildren();
 
         const iframe = document.createElement("iframe");
 
+        // Embedded player, configured to stay inline on mobile.
         iframe.src =
           "https://www.youtube-nocookie.com/embed/" +
-          encodeURIComponent(id);
+          encodeURIComponent(id) +
+          "?playsinline=1&rel=0";
 
         iframe.title = title;
         iframe.allow =
@@ -604,15 +560,18 @@ async function searchYouTube(event) {
     });
 
   } catch (error) {
-    results.innerHTML = "";
-
-    const message = document.createElement("div");
-    message.className = "status";
-    message.textContent = "Search error: " + error.message;
-
-    results.appendChild(message);
+    results.textContent = "Search error: " + error.message;
   }
 }
+
+/* ENTER KEY SEARCH SUPPORT */
+
+document.getElementById("ytSearch").addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.querySelector(".yt-search button").click();
+  }
+});
 
 </script>
 </body>
