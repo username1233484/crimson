@@ -3,536 +3,617 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRIMSON</title>
 
 <style>
-:root { --red: #ff174f; }
-
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(ellipse at 50% 35%, #26000d 0%, #100008 40%, #030303 85%);
+  background:
+    radial-gradient(ellipse at 50% 40%, #26000b 0%, #100006 38%, #030303 78%);
   color: white;
   font-family: Arial, sans-serif;
-  padding: 35px 12px;
   overflow-x: hidden;
 }
 
-/* MOVING SNAKE */
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
 
 .snake {
   position: fixed;
-  inset: 7px;
-  width: calc(100% - 14px);
-  height: calc(100% - 14px);
+  inset: 8px;
+  border: 2px solid transparent;
+  border-radius: 18px;
   pointer-events: none;
   z-index: 0;
+  animation: snakeGlow 5s linear infinite;
 }
 
-.snake path {
-  fill: none;
-  stroke: var(--red);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-dasharray: 55 1800;
-  animation: snakeMove 9s linear infinite;
-  filter: drop-shadow(0 0 4px #ff174f)
-          drop-shadow(0 0 9px #ff174f)
-          drop-shadow(0 0 16px #ff174f88);
+.snake::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid transparent;
+  border-top-color: #ff1744;
+  border-radius: 18px;
+  filter: drop-shadow(0 0 7px #ff1744);
+  animation: snakeMove 7s linear infinite;
 }
 
 @keyframes snakeMove {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: -1855; }
+  to { transform: rotate(360deg); }
 }
 
-.content {
+@keyframes snakeGlow {
+  50% { filter: drop-shadow(0 0 9px #8b001e); }
+}
+
+#home {
   position: relative;
   z-index: 1;
-}
-
-/* HOME TITLE */
-
-header {
-  text-align: center;
-  margin-bottom: 25px;
+  min-height: 100vh;
+  padding: 70px 20px 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .logo {
-  color: var(--red);
-  font-size: clamp(40px, 10vw, 66px);
+  font-size: clamp(42px, 12vw, 70px);
   font-weight: 900;
-  letter-spacing: 7px;
-  animation: glow 1.5s infinite alternate;
+  letter-spacing: 8px;
+  color: #ff244f;
+  text-shadow: 0 0 8px #ff1744, 0 0 25px #a00028;
+  animation: logoPulse 3s ease-in-out infinite;
+  margin-bottom: 35px;
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px var(--red), 0 0 10px var(--red);
-  }
-  to {
-    text-shadow: 0 0 12px var(--red), 0 0 22px #ff174f88;
+@keyframes logoPulse {
+  50% {
+    text-shadow: 0 0 14px #ff1744, 0 0 35px #c00035;
   }
 }
-
-/* SEARCH */
 
 .search {
-  width: 100%;
-  max-width: 600px;
-  height: 52px;
-  margin: 0 auto;
-  border: 2px solid var(--red);
-  border-radius: 30px;
-  box-shadow: 0 0 5px var(--red), 0 0 12px #ff174f66;
+  width: min(100%, 440px);
   display: flex;
-  align-items: center;
-  padding: 0 14px;
-  background: #101010;
-  gap: 10px;
+  border: 1px solid #ff1744;
+  border-radius: 9px;
+  background: #090909;
+  box-shadow: 0 0 12px #5b0018;
+  overflow: hidden;
 }
 
 .search input {
   flex: 1;
   min-width: 0;
   background: transparent;
-  border: none;
+  border: 0;
   outline: none;
+  padding: 13px;
   color: white;
-  -webkit-text-fill-color: white;
-  caret-color: var(--red);
-  font-size: 16px;
-  font-weight: 600;
 }
 
-.search input::placeholder {
-  color: #999;
-  -webkit-text-fill-color: #999;
-  font-weight: normal;
-}
-
-.search button,
-.back-button {
-  border: 1px solid var(--red);
-  background: #1a080e;
+.search button {
+  background: #a5002a;
   color: white;
-  border-radius: 20px;
-  padding: 8px 13px;
-  cursor: pointer;
+  border: 0;
+  padding: 0 16px;
 }
 
-/* HOME APP BUTTONS */
-
-.tiles {
-  display: flex;
+.apps {
+  width: min(100%, 440px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  width: 100%;
-  max-width: 600px;
-  margin: 28px auto 0;
+  margin-top: 18px;
 }
 
-.tile {
-  flex: 1;
-  min-width: 0;
-  height: 46px;
-  background: #101010;
-  border: 2px solid var(--red);
-  border-radius: 9px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  box-shadow: 0 0 5px var(--red), 0 0 12px #ff174f66;
-  cursor: pointer;
-}
-
-.symbol {
-  color: var(--red);
-  font-size: 21px;
+.app-btn {
+  background: #090909;
+  color: #ff3159;
+  border: 1px solid #c00035;
+  border-radius: 8px;
+  padding: 14px 4px;
+  box-shadow: 0 0 8px #470014;
+  transition: .2s;
   font-weight: bold;
 }
 
-.tile span:last-child {
-  font-size: 11px;
-  letter-spacing: .5px;
+.app-btn:hover {
+  background: #28000c;
+  box-shadow: 0 0 15px #ff1744;
+  transform: translateY(-2px);
 }
-
-/* PAGE SYSTEM */
 
 .page {
   display: none;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding: 25px 16px;
 }
 
 .page.active {
   display: block;
 }
 
-.page-heading {
-  color: var(--red);
+.page-title {
+  color: #ff3159;
+  text-shadow: 0 0 10px #ff1744;
   text-align: center;
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  margin: 12px 0 25px;
-  text-shadow: 0 0 10px #ff174f88;
+  font-size: 30px;
 }
 
-.back-button {
-  margin-bottom: 18px;
-}
-
-/* GAMES GRID */
-
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  width: 100%;
-  max-width: 650px;
-  margin: 0 auto;
+.back-btn {
+  border: 1px solid #ff1744;
+  background: #100007;
+  color: #ff4267;
+  padding: 10px 15px;
+  border-radius: 8px;
 }
 
 .game-card {
-  display: block;
-  min-width: 0;
-  padding: 7px;
-  border: 2px solid var(--red);
-  border-radius: 10px;
-  background: #101010;
-  color: white;
-  text-align: left;
-  cursor: pointer;
-  box-shadow: 0 0 6px #ff174f88, 0 0 14px #ff174f44;
+  border: 1px solid #ff1744;
+  border-radius: 12px;
+  background: #090909;
+  padding: 18px;
+  margin: 15px auto;
+  max-width: 420px;
+  box-shadow: 0 0 12px #59001b;
 }
 
-.game-card:active {
-  transform: scale(.97);
-}
-
-.game-card img {
+.game-card button {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-  border-radius: 6px;
-  background: #111;
-}
-
-.game-name {
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: .5px;
-  padding: 9px 3px 3px;
-}
-
-.game-label {
-  display: block;
-  color: var(--red);
-  font-size: 10px;
-  padding: 2px 3px 4px;
-}
-
-/* GAME PAGE */
-
-.game-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.game-title {
-  color: var(--red);
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.fullscreen-button {
-  border: 1px solid var(--red);
-  background: #16070c;
+  background: #a5002a;
+  border: 0;
   color: white;
-  border-radius: 20px;
-  padding: 9px 13px;
-  cursor: pointer;
-  box-shadow: 0 0 7px #ff174f66;
+  border-radius: 7px;
+  padding: 12px;
+  margin-top: 10px;
 }
+
+/* FULL GAME WINDOW */
 
 .game-wrap {
-  position: relative;
-  width: 100%;
-  background: black;
-  border: 3px solid #171717;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 0 8px #ff174f66;
-}
-
-.game-frame {
-  width: 100%;
-  height: 65vh;
-  min-height: 350px;
-  display: block;
-  border: 2px solid var(--red);
-  border-radius: 5px;
-  background: black;
-}
-
-/* EXIT BUTTON */
-
-.exit-overlay {
   display: none;
+  position: fixed;
+  inset: 12px;
+  z-index: 100;
+  background: #050505;
+  border: 2px solid #ff1744;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 22px #ff1744;
 }
 
 .game-wrap.expanded {
-  position: fixed;
-  z-index: 100;
-  inset: 0;
+  display: block;
+}
+
+.game-wrap iframe {
   width: 100%;
   height: 100%;
-  border: none;
-  border-radius: 0;
-  padding: 58px 8px 8px;
-  background: #030303;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  border: 0;
+  background: black;
 }
 
-.game-wrap.expanded .exit-overlay {
-  display: block;
+.exit-overlay {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 8px;
+  right: 8px;
   z-index: 200;
-  background: #16070c;
+  background: #a5002a;
   color: white;
-  border: 2px solid var(--red);
-  border-radius: 22px;
-  padding: 11px 16px;
-  font-weight: bold;
-  font-size: 13px;
-  box-shadow: 0 0 8px var(--red), 0 0 16px #ff174f88;
-  cursor: pointer;
+  border: 1px solid #ff4267;
+  border-radius: 7px;
+  padding: 10px 15px;
 }
 
-.game-wrap.expanded .game-frame {
-  height: 100%;
-  min-height: 0;
-  max-height: 100%;
+/* YOUTUBE WINDOW */
+
+#youtubeOverlay {
+  display: none;
+  position: fixed;
+  inset: 12px;
+  z-index: 300;
+  background: #070707;
+  border: 2px solid #ff1744;
+  border-radius: 13px;
+  box-shadow: 0 0 22px #ff1744;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+#youtubeOverlay.open {
+  display: flex;
+}
+
+.yt-top {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 13px;
+  border-bottom: 1px solid #8e0027;
+  background: #100006;
+}
+
+.yt-brand {
+  font-size: 19px;
+  font-weight: bold;
+  color: #ff3159;
+}
+
+.guest {
+  color: #aaa;
+  font-size: 11px;
+  margin-left: auto;
+}
+
+.yt-close {
+  background: #a5002a;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 13px;
+  color: white;
+}
+
+.yt-content {
+  padding: 14px;
+  overflow-y: auto;
   flex: 1;
 }
 
-.game-note {
-  color: #999;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 12px;
+.yt-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 13px;
 }
 
-@media (max-width: 500px) {
-  body { padding-top: 35px; }
-  .game-frame { height: 58vh; }
-  .game-wrap { padding: 7px; }
+.yt-search input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px;
+  background: #151515;
+  border: 1px solid #a5002a;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+.yt-search button {
+  background: #c00035;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 13px;
+  font-weight: bold;
+}
+
+.yt-note {
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+#ytResults {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 13px;
+}
+
+.yt-result {
+  background: #141414;
+  border: 1px solid #551024;
+  border-radius: 9px;
+  padding: 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.yt-result:hover {
+  border-color: #ff1744;
+  box-shadow: 0 0 10px #65001e;
+}
+
+.yt-result img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.yt-result p {
+  font-size: 13px;
+  line-height: 1.4;
+  color: white;
+  margin: 8px 2px;
+}
+
+#ytPlayer {
+  margin-top: 15px;
+}
+
+#ytPlayer iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid #ff1744;
+  border-radius: 9px;
+}
+
+.status {
+  color: #ff4267;
+  text-align: center;
+  padding: 18px;
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 450px) {
+  #ytResults {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<svg class="snake" viewBox="0 0 400 800" preserveAspectRatio="none">
-  <path d="M 35 15 H 365 Q 385 15 385 35 V 765 Q 385 785 365 785 H 35 Q 15 785 15 765 V 35 Q 15 15 35 15"/>
-</svg>
+<div class="snake"></div>
 
-<div class="content">
+<!-- HOME -->
 
-<!-- HOME PAGE -->
-
-<section class="page active" id="homePage">
-
-  <header>
-    <div class="logo">CRIMSON</div>
-  </header>
+<main id="home">
+  <div class="logo">CRIMSON</div>
 
   <form class="search" onsubmit="searchWeb(event)">
-    <input id="searchInput" type="search"
-      placeholder="Search DuckDuckGo..." autocomplete="off">
+    <input id="webSearch" placeholder="Search with DuckDuckGo...">
     <button type="submit">GO</button>
   </form>
 
-  <div class="tiles">
-
-    <button class="tile"
-      onclick="window.open('https://www.youtube.com','_blank')">
-      <div class="symbol">▶</div>
-      <span>YOUTUBE</span>
-    </button>
-
-    <button class="tile"
-      onclick="window.open('https://www.tiktok.com','_blank')">
-      <div class="symbol">♪</div>
-      <span>TIKTOK</span>
-    </button>
-
-    <button class="tile" onclick="showPage('gamesPage')">
-      <div class="symbol">✦</div>
-      <span>GAMES</span>
-    </button>
-
+  <div class="apps">
+    <button class="app-btn" onclick="openYoutube()">YOUTUBE</button>
+    <button class="app-btn" onclick="openTikTok()">TIKTOK</button>
+    <button class="app-btn" onclick="showPage('games')">GAMES</button>
   </div>
-
-  <div id="results"
-    style="display:none;max-width:600px;margin:25px auto;border:2px solid var(--red);border-radius:12px;overflow:hidden;">
-
-    <iframe id="searchFrame" title="DuckDuckGo results"
-      style="width:100%;height:65vh;border:0;background:white;">
-    </iframe>
-
-  </div>
-
-</section>
+</main>
 
 <!-- GAMES PAGE -->
 
-<section class="page" id="gamesPage">
+<section id="games" class="page">
+  <button class="back-btn" onclick="goHome()">← HOME</button>
+  <h1 class="page-title">GAMES</h1>
 
-  <button class="back-button" onclick="showPage('homePage')">
-    ← HOME
-  </button>
-
-  <div class="page-heading">GAMES</div>
-
-  <div class="game-grid">
-
-    <button class="game-card" onclick="showPage('geometryPage')">
-
-      <img
-        src="https://orbitbeats.org/data/image/GeometryDash.png"
-        alt="Geometry Dash">
-
-      <span class="game-name">GEOMETRY DASH</span>
-      <span class="game-label">PLAY GAME →</span>
-
-    </button>
-
-    <!-- ADD MORE GAME CARDS HERE -->
-
+  <div class="game-card">
+    <h2>Geometry Dash</h2>
+    <p>Play Geometry Dash inside CRIMSON.</p>
+    <button onclick="openGame()">PLAY GAME</button>
   </div>
-
 </section>
 
-<!-- GEOMETRY DASH PAGE -->
+<!-- GAME WINDOW -->
 
-<section class="page" id="geometryPage">
+<div id="gameWrap" class="game-wrap">
+  <button class="exit-overlay" onclick="exitGame()">EXIT ✕</button>
+  <iframe id="gameFrame"
+    src="about:blank"
+    allow="fullscreen; autoplay"
+    allowfullscreen>
+  </iframe>
+</div>
 
-  <button class="back-button" onclick="leaveGame()">
-    ← BACK TO GAMES
-  </button>
+<!-- YOUTUBE WINDOW -->
 
-  <div class="game-toolbar">
-    <div class="game-title">GEOMETRY DASH</div>
+<div id="youtubeOverlay">
+  <header class="yt-top">
+    <div class="yt-brand">▶ CRIMSON TUBE</div>
+    <div class="guest">GUEST MODE</div>
+    <button class="yt-close" onclick="closeYoutube()">✕</button>
+  </header>
 
-    <button class="fullscreen-button" id="fullscreenButton"
-      onclick="toggleFullscreen()">
-      FULLSCREEN
-    </button>
+  <div class="yt-content">
+    <form class="yt-search" onsubmit="searchYouTube(event)">
+      <input id="ytSearch" placeholder="Search YouTube...">
+      <button type="submit">SEARCH</button>
+    </form>
+
+    <div class="yt-note">
+      Search YouTube videos without leaving CRIMSON.
+    </div>
+
+    <div id="ytResults">
+      <div class="status">Search for something to get started.</div>
+    </div>
+
+    <div id="ytPlayer"></div>
   </div>
-
-  <div class="game-wrap" id="gameWrap">
-
-    <button class="exit-overlay" onclick="exitExpanded()">
-      EXIT FULLSCREEN
-    </button>
-
-    <iframe
-      class="game-frame"
-      id="gameFrame"
-      src="https://geometrydash.com/game/index.html"
-      title="Geometry Dash"
-      allow="fullscreen; autoplay"
-      allowfullscreen>
-    </iframe>
-
-  </div>
-
-  <div class="game-note">
-    Turn your phone sideways for a wider game view.
-  </div>
-
-</section>
-
 </div>
 
 <script>
-function showPage(pageId) {
-  exitExpanded();
 
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-  });
+/* ADD YOUR YOUTUBE API KEY HERE */
 
-  document.getElementById(pageId).classList.add("active");
-  window.scrollTo(0, 0);
-}
+const YOUTUBE_API_KEY = "PASTE_YOUR_API_KEY_HERE";
+
+/* HOME SEARCH */
 
 function searchWeb(event) {
   event.preventDefault();
+  const query = document.getElementById("webSearch").value.trim();
+  if (!query) return;
 
-  const query = document.getElementById("searchInput").value.trim();
+  window.open(
+    "https://duckduckgo.com/?q=" + encodeURIComponent(query),
+    "_blank"
+  );
+}
+
+/* PAGE NAVIGATION */
+
+function showPage(page) {
+  document.getElementById("home").style.display = "none";
+
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  document.getElementById(page).classList.add("active");
+  exitGame();
+  closeYoutube();
+}
+
+function goHome() {
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  document.getElementById("home").style.display = "flex";
+  exitGame();
+}
+
+/* TIKTOK */
+
+function openTikTok() {
+  window.open("https://www.tiktok.com/", "_blank");
+}
+
+/* GAME WINDOW */
+
+function openGame() {
+  const wrap = document.getElementById("gameWrap");
+  document.getElementById("gameFrame").src =
+    "https://geometrydash.com/game/index.html";
+
+  wrap.classList.add("expanded");
+}
+
+function exitGame() {
+  const wrap = document.getElementById("gameWrap");
+  wrap.classList.remove("expanded");
+  document.getElementById("gameFrame").src = "about:blank";
+}
+
+/* YOUTUBE WINDOW */
+
+function openYoutube() {
+  document.getElementById("youtubeOverlay").classList.add("open");
+}
+
+function closeYoutube() {
+  document.getElementById("youtubeOverlay").classList.remove("open");
+  document.getElementById("ytPlayer").replaceChildren();
+}
+
+/* REAL YOUTUBE SEARCH */
+
+async function searchYouTube(event) {
+  event.preventDefault();
+
+  const query = document.getElementById("ytSearch").value.trim();
+  const results = document.getElementById("ytResults");
+  const player = document.getElementById("ytPlayer");
 
   if (!query) return;
 
-  document.getElementById("searchFrame").src =
-    "https://html.duckduckgo.com/html/?q=" +
-    encodeURIComponent(query);
+  if (
+    !YOUTUBE_API_KEY ||
+    YOUTUBE_API_KEY === "PASTE_YOUR_API_KEY_HERE"
+  ) {
+    results.innerHTML =
+      '<div class="status">Add your YouTube API key in the code first.</div>';
+    return;
+  }
 
-  const results = document.getElementById("results");
-  results.style.display = "block";
-  results.scrollIntoView({ behavior: "smooth" });
-}
+  results.innerHTML =
+    '<div class="status">Searching YouTube...</div>';
 
-function leaveGame() {
-  exitExpanded();
-  showPage("gamesPage");
-}
+  player.replaceChildren();
 
-function toggleFullscreen() {
-  const wrap = document.getElementById("gameWrap");
-  const button = document.getElementById("fullscreenButton");
+  try {
+    const url =
+      "https://www.googleapis.com/youtube/v3/search" +
+      "?part=snippet&type=video&maxResults=12" +
+      "&q=" + encodeURIComponent(query) +
+      "&key=" + encodeURIComponent(YOUTUBE_API_KEY);
 
-  if (wrap.classList.contains("expanded")) {
-    exitExpanded();
-  } else {
-    wrap.classList.add("expanded");
-    button.textContent = "FULLSCREEN";
-    document.body.style.overflow = "hidden";
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error?.message || "YouTube search failed."
+      );
+    }
+
+    results.replaceChildren();
+
+    if (!data.items || data.items.length === 0) {
+      results.innerHTML =
+        '<div class="status">No videos found.</div>';
+      return;
+    }
+
+    data.items.forEach(video => {
+      const id = video.id.videoId;
+      const title = video.snippet.title;
+      const thumbnail =
+        video.snippet.thumbnails.medium.url;
+
+      const card = document.createElement("div");
+      card.className = "yt-result";
+
+      const img = document.createElement("img");
+      img.src = thumbnail;
+      img.alt = "";
+
+      const text = document.createElement("p");
+      text.textContent = title;
+
+      card.append(img, text);
+
+      card.addEventListener("click", () => {
+        player.replaceChildren();
+
+        const iframe = document.createElement("iframe");
+
+        iframe.src =
+          "https://www.youtube-nocookie.com/embed/" +
+          encodeURIComponent(id);
+
+        iframe.title = title;
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+
+        player.appendChild(iframe);
+        player.scrollIntoView({ behavior: "smooth" });
+      });
+
+      results.appendChild(card);
+    });
+
+  } catch (error) {
+    results.innerHTML = "";
+
+    const message = document.createElement("div");
+    message.className = "status";
+    message.textContent = "Search error: " + error.message;
+
+    results.appendChild(message);
   }
 }
 
-function exitExpanded() {
-  const wrap = document.getElementById("gameWrap");
-  const button = document.getElementById("fullscreenButton");
-
-  if (wrap) {
-    wrap.classList.remove("expanded");
-  }
-
-  if (button) {
-    button.textContent = "FULLSCREEN";
-  }
-
-  document.body.style.overflow = "";
-}
 </script>
-
 </body>
 </html>
-
